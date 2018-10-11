@@ -1,4 +1,4 @@
-# openldap
+# OpenLDAP
 OpenLDAP - Installation (for CentOS/RedHat) and setup
 
 Assuming that the domain is dev.dept.example.com (for example.com just use dc=example,dc=com)
