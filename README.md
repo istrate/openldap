@@ -79,7 +79,7 @@ dn: cn=iot,ou=groups,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
 objectclass: groupofnames
 cn: iot
 description: Example group 2
-member: cn=daniel,ou=people,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
+member: cn=daniel,ou=users,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
 
 #Create Users: user, test, daniel
 
