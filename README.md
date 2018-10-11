@@ -5,12 +5,12 @@ Assuming that the domain is dev.dept.example.com (for example.com just use dc=ex
 
 1) Install OpenLDAP
 
-   ```yum install -y openldap openldap-clients openldap-servers```
+```yum install -y openldap openldap-clients openldap-servers```
 
 2) Start slapd service
 
-   ```systemctl start slapd```
-   ```systemctl enable slapd```
+```systemctl start slapd```
+```systemctl enable slapd```
 
 3) Create db.ldif file with below content
 ```
@@ -31,7 +31,7 @@ olcRootPW: ldappassw
 ```
 4) Add configurations using:
 
-   ```ldapmodify -Y EXTERNAL  -H ldapi:/// -f db.ldif```
+ ``ldapmodify -Y EXTERNAL  -H ldapi:/// -f db.ldif```
 
 5) Do a LDAP shearch 
 
