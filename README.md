@@ -31,7 +31,7 @@ olcRootPW: ldappassw
 ```
 4) Add configurations using:
 
- ``ldapmodify -Y EXTERNAL  -H ldapi:/// -f db.ldif```
+ ```ldapmodify -Y EXTERNAL  -H ldapi:/// -f db.ldif```
 
 5) Do a LDAP shearch 
 
