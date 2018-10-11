@@ -84,21 +84,21 @@ member: cn=daniel,ou=people,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
 
 # Create Users: user, test, daniel
 
-#entry for User test
+# entry for User test
 dn: cn=test,ou=users,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
 cn: test
 sn: test
 userPassword: test
 objectclass: person
 
-#entry for User user
+# entry for User user
 dn: cn=user,ou=users,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
 cn: user
 sn: user
 userPassword: user
 objectclass: person
 
-#entry for User daniel
+# entry for User daniel
 dn: cn=daniel,ou=users,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
 cn: daniel
 sn: daniel
