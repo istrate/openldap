@@ -9,8 +9,8 @@ Assuming that the domain is dev.dept.example.com (for example.com just use dc=ex
 
 2) Start slapd service
 
-```systemctl start slapd```
-```systemctl enable slapd```
+```systemctl start slapd
+   systemctl enable slapd```
 
 3) Create db.ldif file with below content
 ```
