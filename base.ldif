@@ -1,20 +1,5 @@
-#root node
-dn: dc=dev,dc=dept,dc=example,dc=com
-objectClass: dcObject
-objectClass: organizationalUnit
-ou: Dev Department Corp
-
 #messaging node
-dn: ou=messaging,dc=dev,dc=dept,dc=example,dc=com
+dn: ou=messaging,dc=example,dc=com
+objectclass: top
+objectclass: organizationalUnit
 ou: messaging
-objectClass: organizationalUnit
-
-#users in the messaging organizational unit
-dn: ou=users,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
-ou: users
-objectClass: organizationalUnit
-
-#groups in the messaging organizational unit
-dn: ou=groups,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
-ou: groups
-objectClass: organizationalUnit
