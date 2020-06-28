@@ -1,14 +1,14 @@
 dn: olcDatabase={2}hdb,cn=config
 changetype: modify
 replace: olcSuffix
-olcSuffix: dc=swg,dc=usma,dc=ibm,dc=com
+olcSuffix: dc=example,dc=com
 
 dn: olcDatabase={2}hdb,cn=config
 changetype: modify
 replace: olcRootDN
-olcRootDN: cn=Manager,dc=swg,dc=usma,dc=ibm,dc=com
+olcRootDN: cn=Manager,dc=example,dc=com
 
 dn: olcDatabase={2}hdb,cn=config
 changetype: modify
 replace: olcRootPW
-olcRootPW: netcool
+olcRootPW: ldappassw
