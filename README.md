@@ -1,5 +1,5 @@
 # OpenLDAP
-OpenLDAP - Installation (for CentOS/RedHat) and setup
+OpenLDAP - Installation (for CentOS/RedHat 7.x) and setup
 
 Assuming that the domain is dev.dept.example.com (for example.com just use dc=example,dc=com)
 
@@ -14,97 +14,104 @@ Assuming that the domain is dev.dept.example.com (for example.com just use dc=ex
 ```systemctl enable slapd ```
 
 3) Create db.ldif file with below content
+
 ```
 dn: olcDatabase={2}hdb,cn=config
 changetype: modify
 replace: olcSuffix
-olcSuffix: dc=dev,dc=dept,dc=example,dc=com
+olcSuffix: dc=example,dc=com
 
 dn: olcDatabase={2}hdb,cn=config
 changetype: modify
 replace: olcRootDN
-olcRootDN: cn=Manager,dc=dev,dc=dept,dc=example,dc=com
+olcRootDN: cn=Manager,dc=example,dc=com
 
 dn: olcDatabase={2}hdb,cn=config
 changetype: modify
 replace: olcRootPW
 olcRootPW: ldappassw
 ```
+
 4) Add configurations using:
 
  ```ldapmodify -Y EXTERNAL  -H ldapi:/// -f db.ldif```
 
 5) Do a LDAP shearch 
 
-```ldapsearch -x -b "dc=dev,dc=dept,dc=example,dc=com"```
+```ldapsearch -x -b "dc=example,dc=com"```
 
 6) Create a base.ldif file
-```
-#root node
-dn: dc=dev,dc=dept,dc=example,dc=com
-objectClass: dcObject
-objectClass: organizationalUnit
-ou: Dev Department Corp
 
+```
 #messaging node
-dn: ou=messaging,dc=dev,dc=dept,dc=example,dc=com
+dn: ou=messaging,dc=example,dc=com
+objectclass: top
+objectclass: organizationalUnit
 ou: messaging
-objectClass: organizationalUnit
-
-#users in the messaging organizational unit
-dn: ou=users,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
-ou: users
-objectClass: organizationalUnit
-
-#groups in the messaging organizational unit
-dn: ou=groups,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
-ou: groups
-objectClass: organizationalUnit
 ```
+
 7) Create the base using
 
- ```ldapadd -x -W -D "cn=Manager,dc=dev,dc=dept,dc=example,dc=com" -f base.ldif```
+ ```ldapadd -x -W -D "cn=Manager,dc=example,dc=com" -f base.ldif```
 
 8) Create users.ldif with below content
+
 ```
-#Entry for Group imamsg
-dn: cn=imamsg,ou=groups,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
-objectclass: groupofnames
-cn: imamsg
-description: Example group 1
-member: cn=user,ou=users,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
-member: cn=test,ou=users,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
-
-#Entry for Group iot
-dn: cn=iot,ou=groups,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
-objectclass: groupofnames
-cn: iot
-description: Example group 2
-member: cn=daniel,ou=users,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
-
-#Create Users: user, test, daniel
-
-#entry for User test
-dn: cn=test,ou=users,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
-cn: test
-sn: test
-userPassword: test
-objectclass: person
-
-#entry for User user
-dn: cn=user,ou=users,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
-cn: user
-sn: user
-userPassword: user
-objectclass: person
-
-#entry for User daniel
-dn: cn=daniel,ou=users,ou=messaging,dc=dev,dc=dept,dc=example,dc=com
-cn: daniel
-sn: daniel
-userPassword: daniel
-objectclass: person
+dn: ou=users,ou=messaging,dc=example,dc=com
+objectclass: top
+objectclass: organizationalUnit
+ou: users
 ```
-9) Create user using:
 
-```ldapadd -x -W -D "cn=Manager,dc=dev,dc=dept,dc=example,dc=com" -f users.ldif```
+9) Create users OU using:
+
+```ldapadd -x -W -D "cn=Manager,dc=example,dc=com" -f users.ldif```
+
+10) Create a user admin in the OU users using admin.ldif
+
+```
+dn: uid=admin,ou=users,ou=messaging,dc=example,dc=com
+cn: admin
+displayname: 
+gidnumber: 0
+givenname: admin
+homedirectory: /home/admin
+loginshell: admin
+objectclass: posixAccount
+objectclass: top
+objectclass: inetOrgPerson
+sn: admin
+uid: admin
+uidnumber: 27600
+userpassword: admin
+```
+
+11) Add user to the ldap db
+
+```ldapadd -x -W -D "cn=Manager,dc=example,dc=com" -f admin.ldif```
+
+12) Create groups OU using groups.ldif
+
+```
+dn: ou=groups,ou=messaging,dc=example,dc=com
+objectclass: top
+objectclass: organizationalUnit
+ou: groups
+```
+
+13) Add groups OU to the ldap db
+
+```ldapadd -x -W -D "cn=Manager,dc=example,dc=com" -f groups.ldif```
+
+14) Add admins group and users to OU groups using admins.ldif
+
+```
+dn: cn=admins,ou=groups,ou=messaging,dc=example,dc=com
+cn: admins
+member: uid=admin,ou=users,ou=messaging,dc=example,dc=com
+objectclass: groupOfNames
+```
+
+15) Add admins.ldif using
+
+```ldapadd -x -W -D "cn=Manager,dc=example,dc=com" -f admins.ldif```
