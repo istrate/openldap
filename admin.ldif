@@ -1,0 +1,14 @@
+dn: uid=admin,ou=users,ou=messaging,dc=example,dc=com
+cn: admin
+displayname: 
+gidnumber: 0
+givenname: admin
+homedirectory: /home/admin
+loginshell: admin
+objectclass: posixAccount
+objectclass: top
+objectclass: inetOrgPerson
+sn: admin
+uid: admin
+uidnumber: 27600
+userpassword: admin
